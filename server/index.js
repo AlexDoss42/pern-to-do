@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
@@ -9,6 +10,8 @@ app.use(express.json());
 
 
 //ROUTES//
+
+console.log(1111, process.env.DATABASE_PASSWORD)
 
 //create a todo
 
