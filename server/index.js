@@ -1,5 +1,4 @@
 const express = require("express");
-require('dotenv').config();
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
@@ -10,8 +9,6 @@ app.use(express.json());
 
 
 //ROUTES//
-
-console.log(1111, process.env.DATABASE_PASSWORD)
 
 //create a todo
 
@@ -38,7 +35,18 @@ app.get("/todos", async(req, res) => {
 
 //get a todo
 
-//edit a todo
+app.get("/todos/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]);
+
+        res.json(todo.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//update a todo
 
 //delete a todo
 
